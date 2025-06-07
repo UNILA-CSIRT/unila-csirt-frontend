@@ -49,7 +49,6 @@ export default function Navbar() {
         <div className="px-4 sm:px-6 py-3">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <NavLogo />
-
             <div className="hidden lg:flex items-center space-x-8 navbar-nav">
               <NavLink href="/" onClick={() => setOpenDropdown(null)}>Beranda</NavLink>
               
@@ -74,6 +73,13 @@ export default function Navbar() {
               <NavLink href="/layanan" onClick={() => setOpenDropdown(null)}>Layanan</NavLink>
               <NavLink href="/panduan" onClick={() => setOpenDropdown(null)}>Panduan</NavLink>
               <NavLink href="/laporan-insiden" onClick={() => setOpenDropdown(null)}>Laporan Insiden</NavLink>
+            <div className="hidden lg:flex items-center space-x-8">
+              <NavLink href="/">Beranda</NavLink>
+              <DropdownButton>Profil</DropdownButton>
+              <DropdownButton>RFC 2350</DropdownButton>
+              <NavLink href="/layanan">Layanan</NavLink>
+              <NavLink href="/panduan">Panduan</NavLink>
+              <NavLink href="/laporan-insiden">Laporan Insiden</NavLink>
               <NavLink href="/kontak">Kontak Kami</NavLink>
             </div>
 
@@ -81,13 +87,13 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
-
       <MobileMenu
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
         openDropdown={openDropdown}
         setOpenDropdown={setOpenDropdown}
       />
+      <MobileMenu isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
 
       <div 
         className="w-full h-12 bg-primary-dark -mt-1"
