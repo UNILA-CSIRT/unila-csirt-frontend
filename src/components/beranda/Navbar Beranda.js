@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import NavLogo from './navbar/NavLogo';
-import NavLink from './navbar/NavLink';
-import DropdownButton from './navbar/DropdownButton';
-import MobileMenuToggle from './navbar/MobileMenuToggle';
-import MobileMenu from './navbar/MobileMenu';
+import NavLogo from '../navbar/NavLogo';
+import NavLink from '../navbar/NavLink';
+import DropdownButton from '../navbar/DropdownButton';
+import MobileMenuToggle from '../navbar/MobileMenuToggle';
+import MobileMenu from '../navbar/MobileMenu';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -44,7 +44,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <div className="relative">
+    <div className="relative bg-primary-dark"> 
       <nav className="bg-primary-dark relative z-10">
         <div className="px-4 sm:px-6 py-3">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -52,6 +52,7 @@ export default function Navbar() {
 
             <div className="hidden lg:flex items-center space-x-8 navbar-nav">
               <NavLink href="/" onClick={() => setOpenDropdown(null)}>Beranda</NavLink>
+              
               <DropdownButton
                 title="Profil"
                 children={profilLinks}
@@ -60,6 +61,7 @@ export default function Navbar() {
                 onToggle={() => handleDropdownToggle("Profil")}
                 setOpenDropdown={setOpenDropdown}
               />
+              
               <DropdownButton
                 title="RFC 2350"
                 children={rfc2350Links}
@@ -68,23 +70,26 @@ export default function Navbar() {
                 onToggle={() => handleDropdownToggle("RFC 2350")}
                 setOpenDropdown={setOpenDropdown}
               />
+              
               <NavLink href="/layanan" onClick={() => setOpenDropdown(null)}>Layanan</NavLink>
               <NavLink href="/panduan" onClick={() => setOpenDropdown(null)}>Panduan</NavLink>
               <NavLink href="/laporan-insiden" onClick={() => setOpenDropdown(null)}>Laporan Insiden</NavLink>
-              <NavLink href="/kontak" onClick={() => setOpenDropdown(null)}>Kontak Kami</NavLink>
+              <NavLink href="/kontak">Kontak Kami</NavLink>
             </div>
 
             <MobileMenuToggle isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
           </div>
         </div>
       </nav>
+
       <MobileMenu
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
         openDropdown={openDropdown}
         setOpenDropdown={setOpenDropdown}
       />
-      <div
+
+      <div 
         className="w-full h-12 bg-primary-dark -mt-1"
         style={{
           clipPath: 'polygon(0 0, 100% 0, 100% 25%, 0 100%)'

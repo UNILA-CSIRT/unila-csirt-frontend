@@ -66,6 +66,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen, openDropdown, se
               children={profilLinks}
               isMobile={true}
               setIsMenuOpen={setIsMenuOpen}
+              setOpenDropdown={setOpenDropdown}
               isOpen={openDropdown === "Profil"}
               onToggle={() => handleMobileDropdownToggle("Profil")}
             />
@@ -75,6 +76,7 @@ export default function MobileMenu({ isMenuOpen, setIsMenuOpen, openDropdown, se
               children={rfc2350Links}
               isMobile={true}
               setIsMenuOpen={setIsMenuOpen}
+              setOpenDropdown={setOpenDropdown}
               isOpen={openDropdown === "RFC 2350"}
               onToggle={() => handleMobileDropdownToggle("RFC 2350")}
             />

@@ -4,36 +4,46 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
-export default function DropdownButton({ title, children, isMobile = false, setIsMenuOpen = () => {}, isOpen, onToggle }) {
+export default function DropdownButton({ title, children, isMobile = false, setIsMenuOpen = () => {}, isOpen, onToggle, setOpenDropdown }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const toggleDropdown = (e) => {
-    e.stopPropagation();
-    onToggle();
-  };
-
-  const closeDropdown = () => {
-    if (!isMobile) {
-      onToggle(false);
-    }
+    e.stopPropagation(); 
+    onToggle(); 
   };
 
   const isChildActive = () => {
-    if (!children) return false;
-    const currentPath = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
-    return children.some(item => item.href === currentPath);
+    if (!Array.isArray(children) || children.length === 0) {
+      return false;
+    }
+
+    const currentPath = `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
+    
+    return children.some(item => {
+      if (!item || typeof item.href !== 'string') return false; 
+
+      const itemHrefPath = item.href.split('?')[0];
+      const currentPathBase = currentPath.split('?')[0];
+
+      if (item.href === currentPath) return true;
+      
+      if (itemHrefPath !== '/' && currentPathBase.startsWith(itemHrefPath)) return true;
+
+      return false;
+    });
   };
 
   const isDropdownActive = isChildActive() || isOpen;
 
-  const mobileLinkClasses = `block py-3 text-lg border-l-4 border-transparent hover:border-primary-teal hover:pl-4 pl-6`;
-  const desktopLinkClasses = `block py-2 text-gray-700 hover:bg-gray-300 hover:text-gray-900 pl-4`;
+  const mobileLinkClasses = `block py-3 text-lg border-l-4 border-transparent hover:border-primary-teal hover:pl-4 pl-6 text-text-white`; 
+  
+  const desktopLinkClasses = `block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200 hover:text-gray-900`; 
 
   return (
     <div
       className={`relative ${isMobile ? 'py-3' : ''}`}
-      onMouseLeave={isMobile ? null : closeDropdown}
+      onMouseLeave={isMobile ? null : () => setOpenDropdown(null)} 
     >
       <button
         onClick={toggleDropdown}
@@ -52,18 +62,28 @@ export default function DropdownButton({ title, children, isMobile = false, setI
       {isOpen && (
         <div
           className={`absolute ${isMobile ? 'relative top-0 left-0 w-full mt-2' : 'top-full left-0 mt-2 min-w-[180px]'}
-                      ${isMobile ? 'bg-primary-light rounded-md shadow-inner py-2' : 'bg-white rounded-md shadow-lg py-2'}
-                      z-50`}
+                      ${isMobile ? 'bg-primary-light rounded-md shadow-inner py-2' : 'bg-white rounded-md shadow-lg py-2 border border-gray-200'}
+                      z-50`} 
         >
-          {children && children.map((item, index) => (
+          {Array.isArray(children) && children.length > 0 && children.map((item, index) => (
             <Link
-              key={index}
+              key={item.href || index} 
               href={item.href}
               onClick={() => {
-                closeDropdown();
-                if (isMobile) setIsMenuOpen(false);
+                onToggle(); 
+                if (isMobile) {
+                  setIsMenuOpen(false); 
+                }
+                if (setOpenDropdown) { 
+                  setOpenDropdown(null); 
+                }
               }}
-              className={`${isMobile ? mobileLinkClasses : desktopLinkClasses} ${item.className || ''} ${pathname + searchParams.toString() === item.href ? 'text-[#1DBBB7] font-medium' : ''}`}
+              className={`${isMobile ? mobileLinkClasses : desktopLinkClasses} ${item.className || ''} ${
+                (item.href && ((pathname + (searchParams.toString() ? '?' + searchParams.toString() : '')) === item.href ||
+                (item.href.split('?')[0] !== '/' && (pathname + (searchParams.toString() ? '?' + searchParams.toString() : '')).startsWith(item.href.split('?')[0]))))
+                ? 'text-[#1DBBB7] font-medium' 
+                : `${isMobile ? 'text-text-white' : 'text-gray-800'}`
+              }`}
             >
               {item.label}
             </Link>

@@ -5,7 +5,7 @@ export default function NavLink({ href, children, className = "", onClick }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const currentPath = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+  const currentPath = `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
   
   const isActive = currentPath === href || (href.includes('/') && currentPath.startsWith(href.split('?')[0]) && href.split('?')[0] !== '/');
 
