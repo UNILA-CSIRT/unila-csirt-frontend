@@ -1,94 +1,68 @@
 'use client';
 
-import React, { useState } from 'react';
-import Navbar from '../../components/Navbar'; 
+import { useState } from 'react';
+import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import Image from 'next/image';
-import { FaPaperPlane } from 'react-icons/fa';
+import ChatInput from '../../components/chatbot/ChatInput'; 
 
-const ChatPage = () => {
-  const [input, setInput] = useState('');
+export default function ChatbotPage() {
+  const [messages, setMessages] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!input.trim()) return;
-    
-    console.log('Pesan terkirim:', input);
-    
-    setInput('');
+  const handleSendMessage = (message) => {
+    if (!message.trim()) return;
+
+    setMessages(prevMessages => [...prevMessages, { id: Date.now(), text: message, sender: 'user' }]);
   };
 
   return (
-    <div className="bg-primary-dark text-white flex flex-col min-h-screen">
+    <div className="min-h-screen flex flex-col relative text-white
+                    bg-[#0A111E] 
+                    bg-gradient-to-b from-transparent via-[#13686D]/20 to-[#1DBBB7]/30 
+    ">
       <Navbar />
 
-      <main className="flex-grow flex flex-col items-center justify-center p-6 text-center">
-        <div className="mb-4">
-          <Image
-            src="/images/chatai.png"
-            alt="Asisten CSIRT AI"
-            width={100}
-            height={100}
-            priority
-          />
-        </div>
+      <main className="flex-1 flex flex-col items-center justify-between py-8 px-4 sm:px-6 lg:px-8 relative">
+        <div className="flex flex-col items-center justify-center flex-grow z-10 w-full max-w-2xl mx-auto">
+          {messages.length === 0 && ( <>
+              <img
+                src="/images/chatai.png"
+                alt="CSIRT AI Assistant"
+                className="w-24 h-24 sm:w-32 sm:h-32 mb-0 animate-bounce-slow object-contain object-center"
+              />
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-0">
+                Apa yang bisa <span className="text-[#1DBBB7]">Asisten CSIRT AI</span> bantu sekarang?
+              </h1>
+            </>
+          )}
 
-        <h1 className="text-2xl md:text-3xl font-bold mb-6 max-w-md">
-          Apa yang bisa asisten CSIRT AI bantu sekarang?
-        </h1>
-
-        <form onSubmit={handleSubmit} className="w-full max-w-2xl">
-          <div className="relative">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ajukan pertanyaan"
-              className="w-full bg-[#0E212E] border border-gray-600 rounded-lg py-4 pl-5 pr-14 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-teal transition-all"
-            />
-            <button
-              type="submit"
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary-teal transition-colors"
-              aria-label="Kirim pertanyaan"
-            >
-              <FaPaperPlane size={20} />
-            </button>
-          </div>
-        </form>
-      </main>
-
-     <div className="relative h-20 bg-primary-dark" style={{ marginTop: '-1px' }}>
-          <div
-            className="absolute bottom-0 right-0 w-full h-full bg-gray-50"
-            style={{
-              clipPath: 'polygon(100% 0, 100% 100%, 0 100%)',
-            }}
-          ></div>
-          <div className="absolute bottom-0 left-0 w-full h-full">
-            <div className="container mx-auto h-full relative">
-              <div
-                className="absolute h-2 w-48 bg-[#13686D]"
-                style={{
-                  top: '29%',
-                  left: '20%',
-                  transform: 'rotate(-3deg)'
-                }}
-              ></div>
-              <div
-                className="absolute h-2 w-48 bg-primary-teal"
-                style={{
-                  top: '59%',
-                  left: '55%',
-                  transform: 'rotate(-3deg)'
-                }}
-              ></div>
+          {messages.length > 0 && (
+            <div className="w-full flex-grow overflow-y-auto space-y-4 mb-8 p-4 bg-gray-900 bg-opacity-50 rounded-lg shadow-inner max-h-[calc(100vh-250px)]">
+              {messages.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[70%] p-3 rounded-lg ${
+                      msg.sender === 'user'
+                        ? 'bg-gray-800 text-white rounded-br-none'
+                        : 'bg-gray-800 text-gray-300 rounded-bl-none'
+                    }`}
+                  >
+                    <p className="text-sm sm:text-base">{msg.text}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
+          )}
         </div>
+
+        <div className="w-full max-w-2xl mx-auto z-10 sticky bottom-0 py-4">
+          <ChatInput onSendMessage={handleSendMessage} />
+        </div>
+      </main>
 
       <Footer />
     </div>
   );
-};
-
-export default ChatPage;
+}
