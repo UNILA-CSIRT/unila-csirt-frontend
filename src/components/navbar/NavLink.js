@@ -1,9 +1,13 @@
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
-export default function NavLink({ href, children, className = "" }) {
+export default function NavLink({ href, children, className = "", onClick }) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const searchParams = useSearchParams();
+
+  const currentPath = `${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
+  
+  const isActive = currentPath === href || (href.includes('/') && currentPath.startsWith(href.split('?')[0]) && href.split('?')[0] !== '/');
 
   return (
     <Link 
@@ -13,8 +17,9 @@ export default function NavLink({ href, children, className = "" }) {
           ? 'text-primary-teal font-medium' 
           : 'text-text-white hover:text-primary-teal'
       } ${className}`}
+      onClick={onClick}
     >
       {children}
     </Link>
   );
-} 
+}
