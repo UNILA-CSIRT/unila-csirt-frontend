@@ -29,7 +29,6 @@ export default function DropdownButton({ title, children, isMobile = false, setI
       const currentPathBase = currentPath.split('?')[0];
 
       if (item.href === currentPath) return true;
-
       if (itemHrefPath !== '/' && currentPathBase.startsWith(itemHrefPath)) return true;
 
       return false;
@@ -40,15 +39,18 @@ export default function DropdownButton({ title, children, isMobile = false, setI
 
   const mobileLinkClasses = `block py-3 text-lg border-l-4 border-transparent hover:border-primary-teal hover:pl-4 pl-6 text-text-white`;
   const desktopLinkClasses = `block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200 hover:text-gray-900`;
+=
 
   return (
     <div
       className={`relative ${isMobile ? 'py-3' : ''}`}
+
       onMouseLeave={isMobile ? null : () => {
         if (setOpenDropdown) {
           setOpenDropdown(null);
         }
       }}
+
     >
       <button
         onClick={toggleDropdown}
@@ -89,6 +91,7 @@ export default function DropdownButton({ title, children, isMobile = false, setI
                 (item.href && ((pathname + (searchParams.toString() ? '?' + searchParams.toString() : '')) === item.href ||
                 (item.href.split('?')[0] !== '/' && (pathname + (searchParams.toString() ? '?' + searchParams.toString() : '')).startsWith(item.href.split('?')[0]))))
                 ? 'text-[#1DBBB7] font-medium'
+
                 : `${isMobile ? 'text-text-white' : 'text-gray-800'}`
               }`}
             >
