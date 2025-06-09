@@ -9,8 +9,10 @@ export default function DropdownButton({ title, children, isMobile = false, setI
   const searchParams = useSearchParams();
 
   const toggleDropdown = (e) => {
-    e.stopPropagation(); 
-    onToggle(); 
+    e.stopPropagation();
+    if (onToggle && typeof onToggle === 'function') {
+      onToggle();
+    }
   };
 
   const isChildActive = () => {
@@ -19,15 +21,14 @@ export default function DropdownButton({ title, children, isMobile = false, setI
     }
 
     const currentPath = `${pathname}${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
-    
+
     return children.some(item => {
-      if (!item || typeof item.href !== 'string') return false; 
+      if (!item || typeof item.href !== 'string') return false;
 
       const itemHrefPath = item.href.split('?')[0];
       const currentPathBase = currentPath.split('?')[0];
 
       if (item.href === currentPath) return true;
-      
       if (itemHrefPath !== '/' && currentPathBase.startsWith(itemHrefPath)) return true;
 
       return false;
@@ -36,14 +37,20 @@ export default function DropdownButton({ title, children, isMobile = false, setI
 
   const isDropdownActive = isChildActive() || isOpen;
 
-  const mobileLinkClasses = `block py-3 text-lg border-l-4 border-transparent hover:border-primary-teal hover:pl-4 pl-6 text-text-white`; 
-  
-  const desktopLinkClasses = `block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200 hover:text-gray-900`; 
+  const mobileLinkClasses = `block py-3 text-lg border-l-4 border-transparent hover:border-primary-teal hover:pl-4 pl-6 text-text-white`;
+  const desktopLinkClasses = `block px-4 py-2 text-sm text-gray-800 hover:bg-gray-200 hover:text-gray-900`;
+=
 
   return (
     <div
       className={`relative ${isMobile ? 'py-3' : ''}`}
-      onMouseLeave={isMobile ? null : () => setOpenDropdown(null)} 
+
+      onMouseLeave={isMobile ? null : () => {
+        if (setOpenDropdown) {
+          setOpenDropdown(null);
+        }
+      }}
+
     >
       <button
         onClick={toggleDropdown}
@@ -63,25 +70,28 @@ export default function DropdownButton({ title, children, isMobile = false, setI
         <div
           className={`absolute ${isMobile ? 'relative top-0 left-0 w-full mt-2' : 'top-full left-0 mt-2 min-w-[180px]'}
                       ${isMobile ? 'bg-primary-light rounded-md shadow-inner py-2' : 'bg-white rounded-md shadow-lg py-2 border border-gray-200'}
-                      z-50`} 
+                      z-50`}
         >
           {Array.isArray(children) && children.length > 0 && children.map((item, index) => (
             <Link
-              key={item.href || index} 
+              key={item.href || index}
               href={item.href}
               onClick={() => {
-                onToggle(); 
-                if (isMobile) {
-                  setIsMenuOpen(false); 
+                if (onToggle && typeof onToggle === 'function') {
+                  onToggle();
                 }
-                if (setOpenDropdown) { 
-                  setOpenDropdown(null); 
+                if (isMobile) {
+                  setIsMenuOpen(false);
+                }
+                if (setOpenDropdown) {
+                  setOpenDropdown(null);
                 }
               }}
               className={`${isMobile ? mobileLinkClasses : desktopLinkClasses} ${item.className || ''} ${
                 (item.href && ((pathname + (searchParams.toString() ? '?' + searchParams.toString() : '')) === item.href ||
                 (item.href.split('?')[0] !== '/' && (pathname + (searchParams.toString() ? '?' + searchParams.toString() : '')).startsWith(item.href.split('?')[0]))))
-                ? 'text-[#1DBBB7] font-medium' 
+                ? 'text-[#1DBBB7] font-medium'
+
                 : `${isMobile ? 'text-text-white' : 'text-gray-800'}`
               }`}
             >

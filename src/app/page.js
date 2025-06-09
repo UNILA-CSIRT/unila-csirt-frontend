@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Navbar from '../components/beranda/Navbar Beranda';
-import Footer from '../components/beranda/Footer Beranda';
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer';
 import Image from 'next/image';
 
 import csirtIllustration from '../../public/images/csirt-illustration.png';
