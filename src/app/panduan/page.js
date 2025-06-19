@@ -1,56 +1,55 @@
+"use client";
 
-'use client'; 
-
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState, useMemo } from 'react';
-import PaginationControls from '../../components/Pagination/PaginationControls';
-import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
+import Image from "next/image";
+import Link from "next/link";
+import { useState, useMemo } from "react";
+import PaginationControls from "../../components/Pagination/PaginationControls";
+import Navbar from "../../components/Navbar";
+import Footer from "../../components/Footer";
 
 export default function Home() {
-  const allGuides = [ 
+  const allGuides = [
     {
       id: 1,
-      title: 'Panduan Penanganan Insiden Malware',
-      image: '/images/malware_foto.png',
-      downloadLink: '/download/Panduan-Malware.pdf', 
-      alt: 'Gambar ilustrasi Panduan Insiden Malware'
+      title: "Panduan Penanganan Insiden Malware",
+      image: "/images/malware_foto.png",
+      downloadLink: "/download/Panduan-Malware.pdf",
+      alt: "Gambar ilustrasi Panduan Insiden Malware",
     },
     {
       id: 2,
-      title: 'Panduan Penanganan Insiden Ransom',
-      image: '/images/ransomware_foto.png',
-      downloadLink: '/download/Panduan-Ransomware.pdf',
-      alt: 'Gambar ilustrasi Panduan Penanganan Insiden Ransom'
+      title: "Panduan Penanganan Insiden Ransom",
+      image: "/images/ransomware_foto.png",
+      downloadLink: "/download/Panduan-Ransomware.pdf",
+      alt: "Gambar ilustrasi Panduan Penanganan Insiden Ransom",
     },
     {
       id: 3,
-      title: 'Panduan Penanganan Insiden Serangan Phishing',
-      image: '/images/phising_foto.png',
-      downloadLink: '/download/Panduan-Phising.pdf',
-      alt: 'Gambar ilustrasi Panduan Penanganan Insiden Serangan Phishing'
+      title: "Panduan Penanganan Insiden Serangan Phishing",
+      image: "/images/phising_foto.png",
+      downloadLink: "/download/Panduan-Phising.pdf",
+      alt: "Gambar ilustrasi Panduan Penanganan Insiden Serangan Phishing",
     },
     {
       id: 4,
-      title: 'Panduan Menghadapi Insiden Data Breach',
-      image: '/images/breach_foto.png',
-      downloadLink: '/download/Panduan-Data-Breach.pdf',
-      alt: 'Gambar ilustrasi Pedoman Penanganan Insiden Data Breach'
+      title: "Panduan Menghadapi Insiden Data Breach",
+      image: "/images/breach_foto.png",
+      downloadLink: "/download/Panduan-Data-Breach.pdf",
+      alt: "Gambar ilustrasi Pedoman Penanganan Insiden Data Breach",
     },
     {
       id: 5,
-      title: 'Panduan Penanganan Insiden Serangan SQL Injection',
-      image: '/images/sql_foto.png',
-      downloadLink: '/download/Panduan-SQL-Injection.pdf',
-      alt: 'Gambar ilustrasi Pedoman Penanganan Insiden Serangan SQL Injection'
+      title: "Panduan Penanganan Insiden Serangan SQL Injection",
+      image: "/images/sql_foto.png",
+      downloadLink: "/download/Panduan-SQL-Injection.pdf",
+      alt: "Gambar ilustrasi Pedoman Penanganan Insiden Serangan SQL Injection",
     },
     {
       id: 6,
-      title: 'Panduan Perbaikan dan Mitigasi Insiden Website Judi Online',
-      image: '/images/judi_foto.png',
-      downloadLink: '/download/Panduan-Judi-Online.pdf',
-      alt: 'Gambar ilustrasi Pedoman Perbaikan dan Mitigasi Insiden Website Judi Online'
+      title: "Panduan Perbaikan dan Mitigasi Insiden Website Judi Online",
+      image: "/images/judi_foto.png",
+      downloadLink: "/download/Panduan-Judi-Online.pdf",
+      alt: "Gambar ilustrasi Pedoman Perbaikan dan Mitigasi Insiden Website Judi Online",
     },
   ];
 
@@ -65,7 +64,7 @@ export default function Home() {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -81,7 +80,7 @@ export default function Home() {
               {currentGuides.map((guide) => (
                 <div
                   key={guide.id}
-                  className="border border-gray-200 rounded-lg overflow-hidden shadow-sm transition-shadow duration-300
+                  className="border border-gray-200 rounded-lg overflow-hidden shadow-sm
                              flex flex-col transform hover:scale-105 transition-transform duration-300 ease-in-out"
                 >
                   <div className="relative w-full h-48 bg-gray-100 flex items-center justify-center p-4">
@@ -89,7 +88,7 @@ export default function Home() {
                       src={guide.image}
                       alt={guide.alt}
                       fill
-                      style={{ objectFit: 'contain' }}
+                      style={{ objectFit: "contain" }}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                       priority={true}
                     />
@@ -102,7 +101,7 @@ export default function Home() {
                       href={guide.downloadLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-center mt-auto btn-gradient text-[var(--text-white)] py-2.5 px-4 rounded-md text-sm sm:text-base hover:opacity-90 transition-opacity transform hover:scale-105 transition-transform duration-300 ease-in-out"
+                      className="block text-center mt-auto btn-gradient text-[var(--text-white)] py-2.5 px-4 rounded-md text-sm sm:text-base hover:opacity-90 transition-opacity transform hover:scale-105 duration-300 ease-in-out"
                     >
                       Download
                     </Link>

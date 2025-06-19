@@ -10,14 +10,15 @@ const inter = Inter({
 export const metadata = {
   title: "CSIRT UNILA - Computer Security Incident Response Team",
   description: "Universitas Lampung Computer Security Incident Response Team",
+  icons: {
+    icon: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="id">
-      <body
-        className={`${inter.variable} font-sans antialiased`}
-      >
+      <body className={`${inter.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>

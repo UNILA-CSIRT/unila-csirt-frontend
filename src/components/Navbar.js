@@ -1,46 +1,54 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import NavLogo from './navbar/NavLogo';
-import NavLink from './navbar/NavLink';
-import DropdownButton from './navbar/DropdownButton';
-import MobileMenuToggle from './navbar/MobileMenuToggle';
-import MobileMenu from './navbar/MobileMenu';
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import NavLogo from "./navbar/NavLogo";
+import NavLink from "./navbar/NavLink";
+import DropdownButton from "./navbar/DropdownButton";
+import MobileMenuToggle from "./navbar/MobileMenuToggle";
+import MobileMenu from "./navbar/MobileMenu";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
+  const pathname = usePathname(); // 👈 amati perubahan path
 
   const profilLinks = [
-    { label: 'Definisi CSIRT', href: '/profil?page=definisi-csirt' },
-    { label: 'Visi & Misi', href: '/profil?page=visi-misi' },
-    { label: 'Definisi Logo', href: '/profil?page=definisi-logo' },
+    { label: "Definisi CSIRT", href: "/profil?page=definisi-csirt" },
+    { label: "Visi & Misi", href: "/profil?page=visi-misi" },
+    { label: "Definisi Logo", href: "/profil?page=definisi-logo" },
   ];
 
   const rfc2350Links = [
-    { label: 'Informasi Dokumen', href: '/rfc2350?page=informasi-dokumen' },
-    { label: 'Dasar Hukum', href: '/rfc2350?page=dasar-hukum' },
-    { label: 'Kebijakan CSIRT', href: '/rfc2350?page=kebijakan-csirt' },
+    { label: "Informasi Dokumen", href: "/rfc2350?page=informasi-dokumen" },
+    { label: "Dasar Hukum", href: "/rfc2350?page=dasar-hukum" },
+    { label: "Kebijakan CSIRT", href: "/rfc2350?page=kebijakan-csirt" },
   ];
 
   const handleDropdownToggle = (dropdownTitle) => {
-    setOpenDropdown(prevOpenDropdown =>
-      prevOpenDropdown === dropdownTitle ? null : dropdownTitle
-    );
+    setOpenDropdown((prev) => (prev === dropdownTitle ? null : dropdownTitle));
   };
 
+  // 👇 Tutup dropdown saat navigasi selesai (URL berubah)
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (event.target && !event.target.closest('.navbar-nav') && !event.target.closest('.mobile-menu-toggle')) {
+    setOpenDropdown(null);
+    setIsMenuOpen(false);
+  }, [pathname]);
+
+  // 👇 Tutup dropdown kalau klik di luar
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        !e.target.closest(".navbar-nav") &&
+        !e.target.closest(".mobile-menu-toggle")
+      ) {
         setOpenDropdown(null);
         setIsMenuOpen(false);
       }
     };
 
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   return (
@@ -51,7 +59,7 @@ export default function Navbar() {
             <NavLogo />
 
             <div className="hidden lg:flex items-center space-x-8 navbar-nav">
-              <NavLink href="/" onClick={() => setOpenDropdown(null)}>Beranda</NavLink>
+              <NavLink href="/">Beranda</NavLink>
               <DropdownButton
                 title="Profil"
                 children={profilLinks}
@@ -68,27 +76,30 @@ export default function Navbar() {
                 onToggle={() => handleDropdownToggle("RFC 2350")}
                 setOpenDropdown={setOpenDropdown}
               />
-              <NavLink href="/layanan" onClick={() => setOpenDropdown(null)}>Layanan</NavLink>
-              <NavLink href="/panduan" onClick={() => setOpenDropdown(null)}>Panduan</NavLink>
-              <NavLink href="/laporan-insiden" onClick={() => setOpenDropdown(null)}>Laporan Insiden</NavLink>
-              <NavLink href="/kontak" onClick={() => setOpenDropdown(null)}>Kontak Kami</NavLink>
+              <NavLink href="/layanan">Layanan</NavLink>
+              <NavLink href="/panduan">Panduan</NavLink>
+              <NavLink href="/laporan-insiden">Laporan Insiden</NavLink>
+              <NavLink href="/kontak">Kontak Kami</NavLink>
             </div>
 
-            <MobileMenuToggle isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+            <MobileMenuToggle
+              isMenuOpen={isMenuOpen}
+              setIsMenuOpen={setIsMenuOpen}
+            />
           </div>
         </div>
       </nav>
+
       <MobileMenu
         isMenuOpen={isMenuOpen}
         setIsMenuOpen={setIsMenuOpen}
         openDropdown={openDropdown}
         setOpenDropdown={setOpenDropdown}
       />
+
       <div
         className="w-full h-12 bg-primary-dark -mt-1"
-        style={{
-          clipPath: 'polygon(0 0, 100% 0, 100% 25%, 0 100%)'
-        }}
+        style={{ clipPath: "polygon(0 0, 100% 0, 100% 25%, 0 100%)" }}
       ></div>
     </div>
   );
