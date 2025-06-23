@@ -83,23 +83,25 @@ export default function MobileMenu({
 
             <DropdownButton
               title="Profil"
-              children={profilLinks}
               isMobile={true}
               setIsMenuOpen={setIsMenuOpen}
               setOpenDropdown={setOpenDropdown}
               isOpen={openDropdown === "Profil"}
               onToggle={() => handleMobileDropdownToggle("Profil")}
-            />
+            >
+              {profilLinks}
+            </DropdownButton>
 
             <DropdownButton
               title="RFC 2350"
-              children={rfc2350Links}
               isMobile={true}
               setIsMenuOpen={setIsMenuOpen}
               setOpenDropdown={setOpenDropdown}
               isOpen={openDropdown === "RFC 2350"}
               onToggle={() => handleMobileDropdownToggle("RFC 2350")}
-            />
+            >
+              {rfc2350Links}
+            </DropdownButton>
 
             <NavLink
               href="/layanan"

@@ -11,7 +11,7 @@ import MobileMenu from "./navbar/MobileMenu";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const pathname = usePathname(); // 👈 amati perubahan path
+  const pathname = usePathname();
 
   const profilLinks = [
     { label: "Definisi CSIRT", href: "/profil?page=definisi-csirt" },
@@ -29,13 +29,11 @@ export default function Navbar() {
     setOpenDropdown((prev) => (prev === dropdownTitle ? null : dropdownTitle));
   };
 
-  // 👇 Tutup dropdown saat navigasi selesai (URL berubah)
   useEffect(() => {
     setOpenDropdown(null);
     setIsMenuOpen(false);
   }, [pathname]);
 
-  // 👇 Tutup dropdown kalau klik di luar
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -62,20 +60,22 @@ export default function Navbar() {
               <NavLink href="/">Beranda</NavLink>
               <DropdownButton
                 title="Profil"
-                children={profilLinks}
+                items={profilLinks}
                 isMobile={false}
                 isOpen={openDropdown === "Profil"}
                 onToggle={() => handleDropdownToggle("Profil")}
                 setOpenDropdown={setOpenDropdown}
               />
+
               <DropdownButton
                 title="RFC 2350"
-                children={rfc2350Links}
+                items={rfc2350Links}
                 isMobile={false}
                 isOpen={openDropdown === "RFC 2350"}
                 onToggle={() => handleDropdownToggle("RFC 2350")}
                 setOpenDropdown={setOpenDropdown}
               />
+
               <NavLink href="/layanan">Layanan</NavLink>
               <NavLink href="/panduan">Panduan</NavLink>
               <NavLink href="/laporan-insiden">Laporan Insiden</NavLink>

@@ -52,7 +52,8 @@ export default function DefinisiLogoContent() {
         </p>
 
         <h2 className="text-xl font-bold mb-4 text-gray-800">
-          Teks "CSIRT UNILA" dan "Computer Security Incident Team"
+          Teks &quot;CSIRT UNILA&quot; dan &quot;Computer Security Incident
+          Team&quot;
         </h2>
         <p className="mb-6 text-base text-gray-700 leading-relaxed text-justify">
           Menegaskan identitas dan fungsi utama tim dalam pengelolaan dan

@@ -8,53 +8,57 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 export default function Home() {
-  const allGuides = [
-    {
-      id: 1,
-      title: "Panduan Penanganan Insiden Malware",
-      image: "/images/malware_foto.png",
-      downloadLink: "/download/Panduan-Malware.pdf",
-      alt: "Gambar ilustrasi Panduan Insiden Malware",
-    },
-    {
-      id: 2,
-      title: "Panduan Penanganan Insiden Ransom",
-      image: "/images/ransomware_foto.png",
-      downloadLink: "/download/Panduan-Ransomware.pdf",
-      alt: "Gambar ilustrasi Panduan Penanganan Insiden Ransom",
-    },
-    {
-      id: 3,
-      title: "Panduan Penanganan Insiden Serangan Phishing",
-      image: "/images/phising_foto.png",
-      downloadLink: "/download/Panduan-Phising.pdf",
-      alt: "Gambar ilustrasi Panduan Penanganan Insiden Serangan Phishing",
-    },
-    {
-      id: 4,
-      title: "Panduan Menghadapi Insiden Data Breach",
-      image: "/images/breach_foto.png",
-      downloadLink: "/download/Panduan-Data-Breach.pdf",
-      alt: "Gambar ilustrasi Pedoman Penanganan Insiden Data Breach",
-    },
-    {
-      id: 5,
-      title: "Panduan Penanganan Insiden Serangan SQL Injection",
-      image: "/images/sql_foto.png",
-      downloadLink: "/download/Panduan-SQL-Injection.pdf",
-      alt: "Gambar ilustrasi Pedoman Penanganan Insiden Serangan SQL Injection",
-    },
-    {
-      id: 6,
-      title: "Panduan Perbaikan dan Mitigasi Insiden Website Judi Online",
-      image: "/images/judi_foto.png",
-      downloadLink: "/download/Panduan-Judi-Online.pdf",
-      alt: "Gambar ilustrasi Pedoman Perbaikan dan Mitigasi Insiden Website Judi Online",
-    },
-  ];
-
   const guidesPerPage = 4;
   const [currentPage, setCurrentPage] = useState(1);
+
+  // ✅ Bungkus allGuides dengan useMemo
+  const allGuides = useMemo(
+    () => [
+      {
+        id: 1,
+        title: "Panduan Penanganan Insiden Malware",
+        image: "/images/malware_foto.png",
+        downloadLink: "/download/Panduan-Malware.pdf",
+        alt: "Gambar ilustrasi Panduan Insiden Malware",
+      },
+      {
+        id: 2,
+        title: "Panduan Penanganan Insiden Ransom",
+        image: "/images/ransomware_foto.png",
+        downloadLink: "/download/Panduan-Ransomware.pdf",
+        alt: "Gambar ilustrasi Panduan Penanganan Insiden Ransom",
+      },
+      {
+        id: 3,
+        title: "Panduan Penanganan Insiden Serangan Phishing",
+        image: "/images/phising_foto.png",
+        downloadLink: "/download/Panduan-Phising.pdf",
+        alt: "Gambar ilustrasi Panduan Penanganan Insiden Serangan Phishing",
+      },
+      {
+        id: 4,
+        title: "Panduan Menghadapi Insiden Data Breach",
+        image: "/images/breach_foto.png",
+        downloadLink: "/download/Panduan-Data-Breach.pdf",
+        alt: "Gambar ilustrasi Pedoman Penanganan Insiden Data Breach",
+      },
+      {
+        id: 5,
+        title: "Panduan Penanganan Insiden Serangan SQL Injection",
+        image: "/images/sql_foto.png",
+        downloadLink: "/download/Panduan-SQL-Injection.pdf",
+        alt: "Gambar ilustrasi Pedoman Penanganan Insiden Serangan SQL Injection",
+      },
+      {
+        id: 6,
+        title: "Panduan Perbaikan dan Mitigasi Insiden Website Judi Online",
+        image: "/images/judi_foto.png",
+        downloadLink: "/download/Panduan-Judi-Online.pdf",
+        alt: "Gambar ilustrasi Pedoman Perbaikan dan Mitigasi Insiden Website Judi Online",
+      },
+    ],
+    []
+  );
 
   const currentGuides = useMemo(() => {
     const startIndex = (currentPage - 1) * guidesPerPage;

@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### 🖥️ Preview Web
 
-## Getting Started
+---
 
-First, run the development server:
+## Beranda
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Preview Beranda 1](/preview/beranda_1.png)  
+![Preview Beranda 2](/preview/beranda_2.png)  
+![Preview Beranda 3](/preview/beranda_3.png)  
+![Preview Beranda 4](/preview/beranda_4.png)  
+![Preview Beranda 5](/preview/beranda_5.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Profil
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+![Profil - Definisi](/preview/profil_definisi.png)  
+![Profil - Visi & Misi](/preview/profil_visi_misi.png)  
+![Profil - Logo](/preview/profil_logo.png)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## RFC2350
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![RFC2350 - Bagian 1](/preview/rfc2350_1.png)  
+![RFC2350 - Bagian 2](/preview/rfc2350_2.png)  
+![RFC2350 - Bagian 3](/preview/rfc2350_3.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Layanan
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Layanan 1](/preview/layanan_1.png)  
+![Layanan 2](/preview/layanan_2.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## Panduan
+
+![Panduan](/preview/panduan.png)
+
+---
+
+## Laporan Insiden
+
+![Laporan Insiden 1](/preview/laporan_insiden_1.png)  
+![Laporan Insiden 2](/preview/laporan_insiden_2.png)
+
+---
+
+## Kontak Kami
+
+![Kontak Kami 1](/preview/kontak.png)  
+![Kontak Kami 2](/preview/kontak_2.png)
